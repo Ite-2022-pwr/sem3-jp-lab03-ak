@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 public class ApiClient {
 
-    public <P, R> R createRequest(HttpMethod method, String url, P payload, Class<P> payloadType, Class<R> responseType) {
+    public <P, R> R makeRequest(HttpMethod method, String url, P payload, Class<P> payloadType, Class<R> responseType) {
         return WebClient.builder().baseUrl(Config.SERVER_URL).build()
                 .method(method)
                 .uri(url)
