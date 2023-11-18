@@ -6,8 +6,11 @@ import ite.jp.ak.lab03.client.dto.SubmissionDto;
 import ite.jp.ak.lab03.client.dto.TreeDto;
 import ite.jp.ak.lab03.client.enums.AssignmentStatus;
 import ite.jp.ak.lab03.client.enums.SubmissionStatus;
+import ite.jp.ak.lab03.client.exceptions.NoReportDescriptionException;
+import ite.jp.ak.lab03.client.exceptions.ReportAlreadyExistException;
 import ite.jp.ak.lab03.client.ui.ViewManager;
 import ite.jp.ak.lab03.client.ui.models.SubmissionTableModel;
+import ite.jp.ak.lab03.client.web.facades.ControllerRequestsFacade;
 import ite.jp.ak.lab03.client.web.requests.AssignmentApiRequests;
 import ite.jp.ak.lab03.client.web.requests.ReportApiRequests;
 import javafx.collections.FXCollections;
@@ -95,40 +98,18 @@ public class ControllerViewController {
             return;
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        ReportDto tempReport = new ReportDto();
-        tempReport.setSubmission(SubmissionTableModel.toDto(submissionTableModel));
-        ReportDto report = ReportApiRequests.getReportBySubmissionId(tempReport);
-        if (report == null) {
-            report = new ReportDto();
-            report.setSubmission(SubmissionTableModel.toDto(submissionTableModel));
-            String reportDescription = reportTextArea.getText();
-            if (reportDescription == null || reportDescription.isEmpty()) {
-                alert.setTitle("Niepoprawne dane");
-                alert.setHeaderText("Niepoprawny komentarz");
-                alert.setContentText("Proszę napisać treść raportu");
-                alert.showAndWait();
-                return;
-            }
-            report.setDescription(reportDescription);
-            report.setController(viewManager.getLoggedInController());
-            ReportApiRequests.createNewReport(report);
-
-            // Zaktualizowanie statusu przypisania
-            AssignmentDto tempAssignment = new AssignmentDto();
-            tempAssignment.setSubmission(SubmissionTableModel.toDto(submissionTableModel));
-            AssignmentDto assignment = AssignmentApiRequests.getAssignmentBySubmissionId(tempAssignment);
-            assignment.setStatus(AssignmentStatus.Done);
-            AssignmentApiRequests.updateAssignment(assignment);
-
+        try {
+            ControllerRequestsFacade.createReportForSubmission(SubmissionTableModel.toDto(submissionTableModel), viewManager.getLoggedInController(), reportTextArea.getText());
             alert.setTitle("Sukces");
             alert.setHeaderText("Złożono raport");
             alert.setContentText("Raport został wysłany");
-            alert.showAndWait();
-        } else {
-            alert.setTitle("Istniejący raport");
-            alert.setHeaderText("Raport już istnieje");
-            alert.setContentText("Utworzono już raport dla tego zgłoszenia");
-            alert.showAndWait();
+        } catch (ReportAlreadyExistException | NoReportDescriptionException e) {
+            alert.setTitle("Błąd");
+            alert.setHeaderText("Nie można złożyć raportu");
+            alert.setContentText(e.getMessage());
         }
+
+        alert.showAndWait();
+
     }
 }

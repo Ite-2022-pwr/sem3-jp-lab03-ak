@@ -4,7 +4,6 @@ import ite.jp.ak.lab03.server.model.entities.Citizen;
 import ite.jp.ak.lab03.server.model.repositories.ICitizenRepository;
 import ite.jp.ak.lab03.server.web.dto.CitizenDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -14,9 +13,6 @@ import java.util.UUID;
 public class CitizenService {
 
     private final ICitizenRepository citizenRepository;
-
-    @Lazy
-    private final SubmissionService submissionService;
 
     public CitizenDto createDto(Citizen citizen) {
         CitizenDto citizenDto = new CitizenDto();

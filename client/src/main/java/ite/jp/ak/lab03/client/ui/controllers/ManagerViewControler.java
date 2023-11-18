@@ -1,10 +1,14 @@
 package ite.jp.ak.lab03.client.ui.controllers;
 
 import ite.jp.ak.lab03.client.dto.*;
-import ite.jp.ak.lab03.client.enums.AssignmentStatus;
 import ite.jp.ak.lab03.client.enums.SubmissionStatus;
+import ite.jp.ak.lab03.client.exceptions.AssignmentAlreadyExistException;
+import ite.jp.ak.lab03.client.exceptions.FeedbackAlreadyExistException;
+import ite.jp.ak.lab03.client.exceptions.NoFeedbackDescriptionException;
+import ite.jp.ak.lab03.client.exceptions.NoReportForSubmissionException;
 import ite.jp.ak.lab03.client.ui.ViewManager;
 import ite.jp.ak.lab03.client.ui.models.SubmissionTableModel;
+import ite.jp.ak.lab03.client.web.facades.ManagerRequestsFacade;
 import ite.jp.ak.lab03.client.web.requests.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -131,36 +135,21 @@ public class ManagerViewControler {
         if (controllerUsername == null)
             return;
 
-        ControllerDto tempController = new ControllerDto();
-        tempController.setUsername(controllerUsername);
-        ControllerDto controller = ControllerApiRequests.getControllerByUsername(tempController);
-
-        SubmissionDto submissionDto = SubmissionTableModel.toDto(submissionTableModel);
-        submissionDto = SubmissionApiRequests.getSubmissionById(submissionDto);
-
-        // Przypisanie kontrolera do zgłoszenia
-        AssignmentDto assignment = new AssignmentDto();
-        assignment.setController(controller);
-        assignment.setSubmission(submissionDto);
-
-        // Sprawdzenie czy zgłoszenie nie zostało już przydzielone
-        AssignmentDto tempAssignment = AssignmentApiRequests.getAssignmentBySubmissionId(assignment);
-        if (tempAssignment != null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        ControllerDto controller;
+        try {
+            controller = ManagerRequestsFacade.createNewAssignment(SubmissionTableModel.toDto(submissionTableModel), controllerUsername);
+            alert.setTitle("Sukces");
+            alert.setHeaderText("Przypisano kontrolera");
+            alert.setContentText("Zgłoszenie zostało przekazane do kontroli");
+            alert.showAndWait();
+        } catch (AssignmentAlreadyExistException e) {
             alert.setTitle("Błąd");
-            alert.setHeaderText("Zgłoszenie zostało już przydzielone");
-            alert.setContentText("Zgłoszenie zostało już przekazane do kontrolera");
+            alert.setHeaderText("Nie można przypisać kontrolera");
+            alert.setContentText(e.getMessage());
             alert.showAndWait();
             return;
         }
-
-        // Utworzenie nowego zadania
-        assignment.setStatus(AssignmentStatus.Remaining);
-        AssignmentApiRequests.createNewAssignment(assignment);
-
-        // Zmiana statusu zgłoszenia
-        submissionDto.setStatus(SubmissionStatus.Accepted);
-        SubmissionApiRequests.updateSubmission(submissionDto);
 
         controllerComboBox.setVisible(false);
         assignButton.setVisible(false);
@@ -172,62 +161,17 @@ public class ManagerViewControler {
         if (submissionTableModel == null)
             return;
 
-        // Sprawdzenie czy istnieje raport dla tego zgłoszenia
-        ReportDto tempReport = new ReportDto();
-        tempReport.setSubmission(SubmissionTableModel.toDto(submissionTableModel));
-        ReportDto report = ReportApiRequests.getReportBySubmissionId(tempReport);
-        if (report == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Błąd");
-            alert.setHeaderText("Brak raportu");
-            alert.setContentText("Zgłoszenie nie zostało jeszcze skontrolowane");
-            alert.showAndWait();
-            return;
-        }
-
-        String feedbackDescription = feedbackTextArea.getText();
-        if (feedbackDescription == null || feedbackDescription.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Niepoprawne dane");
-            alert.setHeaderText("Niepoprawny komentarz");
-            alert.setContentText("Proszę napisać treść komentarza");
-            alert.showAndWait();
-            return;
-        }
-
-        SubmissionDto submissionDto = SubmissionTableModel.toDto(submissionTableModel);
-        submissionDto = SubmissionApiRequests.getSubmissionById(submissionDto);
-
-        FeedbackDto feedback = new FeedbackDto();
-        feedback.setSubmission(submissionDto);
-
-        // Sprawdzenie czy zgłoszenie nie zostało już ocenione
-        FeedbackDto tempfeedback = FeedbackApiRequests.getFeedbackBySubmissionId(feedback);
-        if (tempfeedback != null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Błąd");
-            alert.setHeaderText("Zgłoszenie zostało już zakończone");
-            alert.setContentText("Komentarz został już dodany, zgłoszenie zostało już zakończone");
-            alert.showAndWait();
-            return;
-        }
-
-
-        feedback.setDescription(feedbackDescription);
-        feedback.setManager(viewManager.getLoggedInManager());
-
-        FeedbackApiRequests.createNewFeedback(feedback);
-
-        // Zamknięcie zgłoszenia
-        submissionDto.setStatus(SubmissionStatus.Completed);
-        SubmissionApiRequests.updateSubmission(submissionDto);
-
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Komentarz dodany");
-        alert.setHeaderText("Komentarz został dodany");
-        alert.setContentText("Zgłoszenie zostało zakończone");
+        try {
+            ManagerRequestsFacade.createFeedbackForSubmission(SubmissionTableModel.toDto(submissionTableModel), viewManager.getLoggedInManager(), feedbackTextArea.getText());
+            alert.setTitle("Sukces");
+            alert.setHeaderText("Dodano komentarz");
+            alert.setContentText("Zgłoszenie zostało zamknięte");
+        } catch (FeedbackAlreadyExistException | NoFeedbackDescriptionException | NoReportForSubmissionException e) {
+            alert.setTitle("Błąd");
+            alert.setHeaderText("Nie można dodać komentarza");
+            alert.setContentText(e.getMessage());
+        }
         alert.showAndWait();
-
-        feedbackTextArea.setText("");
     }
 }

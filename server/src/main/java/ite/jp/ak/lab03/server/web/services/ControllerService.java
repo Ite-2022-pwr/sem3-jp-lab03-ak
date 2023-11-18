@@ -4,7 +4,6 @@ import ite.jp.ak.lab03.server.model.entities.Controller;
 import ite.jp.ak.lab03.server.model.repositories.IControllerRepository;
 import ite.jp.ak.lab03.server.web.dto.ControllerDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -15,9 +14,6 @@ import java.util.List;
 public class ControllerService {
 
     private final IControllerRepository controllerRepository;
-
-    @Lazy
-    private final ReportService reportService;
 
     public ControllerDto createDto(Controller controller) {
         ControllerDto controllerDto = new ControllerDto();
