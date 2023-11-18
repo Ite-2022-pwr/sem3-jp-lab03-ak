@@ -1,7 +1,7 @@
 package ite.jp.ak.lab03.server.web.services;
 
-import ite.jp.ak.lab03.model.entities.Tree;
-import ite.jp.ak.lab03.model.repositories.ITreeRepository;
+import ite.jp.ak.lab03.server.model.entities.Tree;
+import ite.jp.ak.lab03.server.model.repositories.ITreeRepository;
 import ite.jp.ak.lab03.server.web.dto.TreeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

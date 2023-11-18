@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ite.jp.ak.lab03.client.ui.controllers.ControllerViewController">
+   <children>
+      <Label layoutX="410.0" layoutY="556.0" text="Zalogowano jako Kontroler" />
+      <Label layoutX="39.0" layoutY="35.0" text="Zgłoszenia do oceny">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="245.0" layoutY="34.0" mnemonicParsing="false" onAction="#refresh" text="Odśwież" />
+      <TableView fx:id="submissionTableView" layoutX="39.0" layoutY="78.0" onMouseClicked="#submissionSelectedEvent" prefHeight="200.0" prefWidth="448.0">
+        <columns>
+          <TableColumn fx:id="citizenTableColumn" prefWidth="168.0" text="obywatel" />
+          <TableColumn fx:id="dateTableColumn" prefWidth="148.0" text="Data" />
+            <TableColumn fx:id="statusTableColumn" prefWidth="131.0" text="status" />
+        </columns>
+      </TableView>
+      <Label layoutX="642.0" layoutY="70.0" text="Szczegóły zgłoszenia">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateLabel" layoutX="642.0" layoutY="157.0" text="Data: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="642.0" layoutY="190.0" text="Drzewa:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="308.0" text="Raport">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="reportTextArea" layoutX="39.0" layoutY="329.0" prefHeight="126.0" prefWidth="369.0" />
+      <Button layoutX="39.0" layoutY="474.0" mnemonicParsing="false" onAction="#makeReport" text="Dodaj raport" />
+      <TableView fx:id="treeTableView" layoutX="642.0" layoutY="229.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="treeNameTableColumn" prefWidth="107.0" text="nazwa" />
+          <TableColumn fx:id="treeDiameterTableColumn" prefWidth="92.0" text="średnica" />
+        </columns>
+      </TableView>
+      <Label fx:id="citizenLabel" layoutX="642.0" layoutY="111.0" text="Obywatel:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

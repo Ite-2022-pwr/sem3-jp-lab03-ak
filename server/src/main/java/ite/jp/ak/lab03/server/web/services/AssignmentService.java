@@ -1,10 +1,10 @@
 package ite.jp.ak.lab03.server.web.services;
 
-import ite.jp.ak.lab03.model.entities.Assignment;
-import ite.jp.ak.lab03.model.enums.AssignmentStatus;
-import ite.jp.ak.lab03.model.repositories.IAssignmentRepository;
-import ite.jp.ak.lab03.model.repositories.IControllerRepository;
-import ite.jp.ak.lab03.model.repositories.ISubmissionRepository;
+import ite.jp.ak.lab03.server.model.entities.Assignment;
+import ite.jp.ak.lab03.server.model.enums.AssignmentStatus;
+import ite.jp.ak.lab03.server.model.repositories.IAssignmentRepository;
+import ite.jp.ak.lab03.server.model.repositories.IControllerRepository;
+import ite.jp.ak.lab03.server.model.repositories.ISubmissionRepository;
 import ite.jp.ak.lab03.server.web.dto.AssignmentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package ite.jp.ak.lab03.server.web.dto;
 
-import ite.jp.ak.lab03.model.enums.AssignmentStatus;
+import ite.jp.ak.lab03.server.model.enums.AssignmentStatus;
 import lombok.Data;
 
 import java.util.UUID;

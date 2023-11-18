@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: RunMain
+Class-Path: /home/wexe1/Dokumenty/codes/java/JP_Lab03_CRUD/client/RunMai
+ n
+

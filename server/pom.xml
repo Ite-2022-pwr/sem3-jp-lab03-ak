@@ -49,11 +49,7 @@
 			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-community-dialects</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>ite.jp.ak.lab03.model</groupId>
-			<artifactId>model</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+
 	</dependencies>
 
 	<build>

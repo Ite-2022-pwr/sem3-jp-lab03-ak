@@ -1,13 +1,13 @@
 package ite.jp.ak.lab03.server.web.services;
 
-import ite.jp.ak.lab03.model.entities.Citizen;
-import ite.jp.ak.lab03.model.entities.Submission;
-import ite.jp.ak.lab03.model.entities.Tree;
-import ite.jp.ak.lab03.model.enums.SubmissionStatus;
-import ite.jp.ak.lab03.model.repositories.ICitizenRepository;
-import ite.jp.ak.lab03.model.repositories.IReportRepository;
-import ite.jp.ak.lab03.model.repositories.ISubmissionRepository;
-import ite.jp.ak.lab03.model.repositories.ITreeRepository;
+import ite.jp.ak.lab03.server.model.entities.Citizen;
+import ite.jp.ak.lab03.server.model.entities.Submission;
+import ite.jp.ak.lab03.server.model.entities.Tree;
+import ite.jp.ak.lab03.server.model.enums.SubmissionStatus;
+import ite.jp.ak.lab03.server.model.repositories.ICitizenRepository;
+import ite.jp.ak.lab03.server.model.repositories.IReportRepository;
+import ite.jp.ak.lab03.server.model.repositories.ISubmissionRepository;
+import ite.jp.ak.lab03.server.model.repositories.ITreeRepository;
 import ite.jp.ak.lab03.server.web.dto.SubmissionDto;
 import ite.jp.ak.lab03.server.web.dto.TreeDto;
 import lombok.RequiredArgsConstructor;

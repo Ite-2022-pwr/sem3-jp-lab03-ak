@@ -1,6 +1,6 @@
 package ite.jp.ak.lab03.server.web.dto;
 
-import ite.jp.ak.lab03.model.enums.SubmissionStatus;
+import ite.jp.ak.lab03.server.model.enums.SubmissionStatus;
 import lombok.Data;
 
 import java.time.LocalDate;

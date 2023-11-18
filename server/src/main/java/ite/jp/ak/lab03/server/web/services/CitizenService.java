@@ -1,9 +1,8 @@
 package ite.jp.ak.lab03.server.web.services;
 
-import ite.jp.ak.lab03.model.entities.Citizen;
-import ite.jp.ak.lab03.model.repositories.ICitizenRepository;
+import ite.jp.ak.lab03.server.model.entities.Citizen;
+import ite.jp.ak.lab03.server.model.repositories.ICitizenRepository;
 import ite.jp.ak.lab03.server.web.dto.CitizenDto;
-import ite.jp.ak.lab03.server.web.dto.SubmissionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;

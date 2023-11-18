@@ -1,9 +1,9 @@
 package ite.jp.ak.lab03.server.web.services;
 
-import ite.jp.ak.lab03.model.entities.Feedback;
-import ite.jp.ak.lab03.model.repositories.IFeedbackRepository;
-import ite.jp.ak.lab03.model.repositories.IManagerRepository;
-import ite.jp.ak.lab03.model.repositories.ISubmissionRepository;
+import ite.jp.ak.lab03.server.model.entities.Feedback;
+import ite.jp.ak.lab03.server.model.repositories.IFeedbackRepository;
+import ite.jp.ak.lab03.server.model.repositories.IManagerRepository;
+import ite.jp.ak.lab03.server.model.repositories.ISubmissionRepository;
 import ite.jp.ak.lab03.server.web.dto.FeedbackDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

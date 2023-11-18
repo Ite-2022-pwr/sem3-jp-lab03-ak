@@ -1,6 +1,6 @@
 package ite.jp.ak.lab03.server.web.controllers;
 
-import ite.jp.ak.lab03.model.enums.SubmissionStatus;
+import ite.jp.ak.lab03.server.model.enums.SubmissionStatus;
 import ite.jp.ak.lab03.server.web.dto.SubmissionDto;
 import ite.jp.ak.lab03.server.web.services.SubmissionService;
 import lombok.RequiredArgsConstructor;

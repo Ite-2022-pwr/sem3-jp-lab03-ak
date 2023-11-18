@@ -1,15 +1,14 @@
 package ite.jp.ak.lab03.server.web.services;
 
-import ite.jp.ak.lab03.model.entities.Controller;
-import ite.jp.ak.lab03.model.entities.Report;
-import ite.jp.ak.lab03.model.repositories.IControllerRepository;
+import ite.jp.ak.lab03.server.model.entities.Controller;
+import ite.jp.ak.lab03.server.model.repositories.IControllerRepository;
 import ite.jp.ak.lab03.server.web.dto.ControllerDto;
-import ite.jp.ak.lab03.server.web.dto.ReportDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -66,6 +65,10 @@ public class ControllerService {
     public Controller createAndSave(ControllerDto controllerDto) {
         Controller newController = create(controllerDto);
         return controllerRepository.saveAndFlush(newController);
+    }
+
+    public List<ControllerDto> getAll() {
+        return controllerRepository.findAll().stream().map(this::createDto).toList();
     }
 
 }

@@ -1,9 +1,9 @@
 package ite.jp.ak.lab03.server.web.services;
 
-import ite.jp.ak.lab03.model.entities.Report;
-import ite.jp.ak.lab03.model.repositories.IControllerRepository;
-import ite.jp.ak.lab03.model.repositories.IReportRepository;
-import ite.jp.ak.lab03.model.repositories.ISubmissionRepository;
+import ite.jp.ak.lab03.server.model.entities.Report;
+import ite.jp.ak.lab03.server.model.repositories.IControllerRepository;
+import ite.jp.ak.lab03.server.model.repositories.IReportRepository;
+import ite.jp.ak.lab03.server.model.repositories.ISubmissionRepository;
 import ite.jp.ak.lab03.server.web.dto.ReportDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

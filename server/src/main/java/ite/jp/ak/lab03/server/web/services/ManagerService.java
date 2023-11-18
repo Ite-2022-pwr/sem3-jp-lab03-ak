@@ -1,11 +1,9 @@
 package ite.jp.ak.lab03.server.web.services;
 
-import ite.jp.ak.lab03.model.entities.Manager;
-import ite.jp.ak.lab03.model.repositories.IManagerRepository;
-import ite.jp.ak.lab03.server.web.dto.FeedbackDto;
+import ite.jp.ak.lab03.server.model.entities.Manager;
+import ite.jp.ak.lab03.server.model.repositories.IManagerRepository;
 import ite.jp.ak.lab03.server.web.dto.ManagerDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -15,9 +13,6 @@ import java.util.UUID;
 public class ManagerService {
 
     private final IManagerRepository managerRepository;
-
-    @Lazy
-    private final FeedbackService feedbackService;
 
     public ManagerDto createDto(Manager manager) {
         ManagerDto managerDto = new ManagerDto();

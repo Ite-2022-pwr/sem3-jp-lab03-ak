@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -33,5 +34,10 @@ public class ControllerController {
     @PostMapping("/new")
     public ResponseEntity<ControllerDto> create(@RequestBody ControllerDto controllerDto) {
         return ResponseEntity.ok(controllerService.createDto(controllerService.createAndSave(controllerDto)));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ControllerDto>> getAll() {
+        return ResponseEntity.ok(controllerService.getAll());
     }
 }
